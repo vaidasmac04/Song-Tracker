@@ -3,10 +3,9 @@ package lt.vu.entities;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,6 +17,12 @@ public class Singer {
     private String firstName;
     private String lastName;
     private String stageName;
+
+    @OneToMany(mappedBy = "singer")
+    List<BandSinger> bandSingers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "singer")
+    List<SingerSong> singerSongs = new ArrayList<>();
 
     public Singer(){
 
