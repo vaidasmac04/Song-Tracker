@@ -12,9 +12,9 @@ import java.sql.Date;
 @Entity
 @Getter
 @Setter
-public class SingerSong {
+public class MusicianSong {
     @EmbeddedId
-    private SingerSongKey id;
+    private MusicianSongKey id;
 
     private Date ReleaseDate;
 
@@ -24,11 +24,11 @@ public class SingerSong {
 
     @ManyToOne
     @MapsId("singerId")
-    private Singer singer;
+    private Musician musician;
 
     @ManyToOne
     private Album album;
 
-    public SingerSong() {
+    public MusicianSong() {
     }
 }

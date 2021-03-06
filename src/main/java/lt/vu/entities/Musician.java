@@ -10,17 +10,21 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Band {
+public class Musician {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String title;
+    private String stageName;
+
+    @OneToMany(mappedBy = "musician")
+    List<MusicianSong> musicianSongs = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "band")
-    List<BandSinger> bandSingers = new ArrayList<>();
+    public Musician(){
 
-    public Band(){
+    }
 
+    public Musician(String stageName) {
+        this.stageName = stageName;
     }
 }

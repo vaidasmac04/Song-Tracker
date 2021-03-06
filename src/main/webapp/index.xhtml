@@ -6,11 +6,16 @@
 >
 <h:head/>
 <h:body>
-    <h2>Singers:</h2>
+    <h2>Songs:</h2>
     <ul>
-        <ui:repeat value="#{singers.allSingers}" var="singer">
-            <li>#{singer.firstName} #{singer.lastName} (#{singer.stageName})</li>
+        <ui:repeat value="#{songs.allSongs}" var="song">
+            <li>#{song.title}</li>
         </ui:repeat>
     </ul>
+
+    <h:form>
+        <h:inputText value="#{songs.songToCreate.title}" required="true" />
+        <h:commandButton value="Add new song" action="#{songs.createSong}" />
+    </h:form>
 </h:body>
 </html>

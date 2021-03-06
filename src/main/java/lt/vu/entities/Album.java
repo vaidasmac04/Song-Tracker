@@ -18,7 +18,7 @@ public class Album {
     private String title;
 
     @OneToMany(mappedBy="album")
-    private List<SingerSong> singerSongs = new ArrayList<>();
+    private List<MusicianSong> musicianSongs = new ArrayList<>();
 
     public Album(){
 

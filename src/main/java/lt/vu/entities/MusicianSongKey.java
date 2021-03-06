@@ -10,12 +10,12 @@ import java.util.Objects;
 @Getter
 @Setter
 @Embeddable
-public class SingerSongKey implements Serializable {
+public class MusicianSongKey implements Serializable {
     private Integer singerId;
 
     private Integer songId;
 
-    public SingerSongKey() {
+    public MusicianSongKey() {
 
     }
 
@@ -23,7 +23,7 @@ public class SingerSongKey implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SingerSongKey that = (SingerSongKey) o;
+        MusicianSongKey that = (MusicianSongKey) o;
         return singerId.equals(that.singerId) && songId.equals(that.songId);
     }
 

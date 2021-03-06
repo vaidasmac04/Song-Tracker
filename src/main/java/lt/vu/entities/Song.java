@@ -10,6 +10,10 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NamedQueries({
+        @NamedQuery(name = "Song.findAll", query = "select s from Song as s")
+})
+
 public class Song {
 
     @Id
@@ -20,8 +24,8 @@ public class Song {
     @ManyToMany
     private List<Genre> genres = new ArrayList<>();
 
-    @OneToMany(mappedBy = "singer")
-    List<SingerSong> singerSongs = new ArrayList<>();
+    @OneToMany(mappedBy = "musician")
+    List<MusicianSong> musicianSongs = new ArrayList<>();
 
     public Song(){
 
