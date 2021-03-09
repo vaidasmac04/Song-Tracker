@@ -3,19 +3,29 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
 >
 <h:head/>
 <h:body>
-    <h2>Songs:</h2>
-    <ul>
-        <ui:repeat value="#{songs.allSongs}" var="song">
-            <li>#{song.title}</li>
-        </ui:repeat>
-    </ul>
+    <h1>Musicians</h1>
+    <c:choose>
+        <c:when test="#{musicians.allMusicians.size() > 0}" >
+            <ul>
+                <ui:repeat value="#{musicians.allMusicians}" var="musician">
+                    <li><h:link value="#{musician.stageName}" outcome="musician-songs?musicianId=#{musician.id}" /></li>
+                </ui:repeat>
+            </ul>
+        </c:when>
+        <c:otherwise>
+            <p>There are no musicians added yet</p>
+        </c:otherwise>
+    </c:choose>
 
+    <h2>Add new musician</h2>
     <h:form>
-        <h:inputText value="#{songs.songToCreate.title}" required="true" />
-        <h:commandButton value="Add new song" action="#{songs.createSong}" />
+        Enter musician stage name:
+        <h:inputText value="#{musicians.musicianToCreate.stageName}" required="true" />
+        <h:commandButton value="Add new musician" action="#{musicians.createMusician}" />
     </h:form>
 </h:body>
 </html>

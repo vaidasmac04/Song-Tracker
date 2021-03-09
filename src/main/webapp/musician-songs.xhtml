@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head/>
+<h:body>
+    <h2>Musician: #{songsOfMusician.musician.stageName}</h2>
+
+    <c:choose>
+        Songs:
+        <c:when test="#{songsOfMusician.musician.songs.size() > 0}" >
+            <ui:repeat value="#{songsOfMusician.musician.songs}" var="musicianSong">
+                <ul>
+                    <li>#{musicianSong.title}</li>
+                </ul>
+            </ui:repeat>
+        </c:when>
+        <c:otherwise>
+            <p>There are no songs added yet</p>
+        </c:otherwise>
+    </c:choose>
+
+    <h3>Add song</h3>
+    <h:form>
+        Enter song title:
+        <h:inputText value="#{songsOfMusician.songToCreate.title}" required="true" />
+        <h:commandButton value="Add song" action="#{songsOfMusician.createSong}" >
+            <f:param name="musicianId" value="#{songsOfMusician.musician.id}" />
+        </h:commandButton>
+    </h:form>
+</h:body>
+</html>

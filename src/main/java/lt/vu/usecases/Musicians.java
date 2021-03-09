@@ -1,35 +1,41 @@
 package lt.vu.usecases;
 
 import lombok.Getter;
+import lombok.Setter;
 import lt.vu.entities.Musician;
+import lt.vu.persistence.MusicianDAO;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
-import java.util.ArrayList;
+import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Model
 public class Musicians {
+
+    @Inject
+    private MusicianDAO musicianDAO;
+
+    @Getter
+    @Setter
+    private Musician musicianToCreate = new Musician();
+
     @Getter
     private List<Musician> allMusicians;
 
     @PostConstruct
     public void init(){
-        loadMusicians();
+        loadAllTeams();
     }
 
-    public void loadMusicians() {
-        this.allMusicians = getMockedMusicians();
+    @Transactional
+    public String createMusician(){
+        this.musicianDAO.persist(musicianToCreate);
+        return "success";
     }
 
-    private List<Musician> getMockedMusicians(){
-        List<Musician> musicians = new ArrayList<>();
-        musicians.add(new Musician("Billie Eilish"));
-        musicians.add(new Musician("Taylor Swift"));
-        musicians.add(new Musician("Ed Sheeran"));
-        musicians.add(new Musician("Shawn Mendes"));
-        musicians.add(new Musician("Selena Gomez"));
-        musicians.add(new Musician("The Weeknd"));
-        return musicians;
+    private void loadAllTeams(){
+        this.allMusicians = musicianDAO.loadAll();
     }
 }

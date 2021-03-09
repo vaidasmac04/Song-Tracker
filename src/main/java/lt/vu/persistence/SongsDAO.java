@@ -14,10 +14,6 @@ public class SongsDAO {
     @Setter
     private EntityManager em;
 
-    public List<Song> loadAll() {
-        return em.createNamedQuery("Song.findAll", Song.class).getResultList();
-    }
-
     public void persist(Song song){
         this.em.persist(song);
     }
