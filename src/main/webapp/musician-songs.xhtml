@@ -15,7 +15,7 @@
         <c:when test="#{songsOfMusician.musician.songs.size() > 0}" >
             <ui:repeat value="#{songsOfMusician.musician.songs}" var="musicianSong">
                 <ul>
-                    <li>#{musicianSong.title}</li>
+                    <li><h:link value="#{musicianSong.title}" outcome="song-details?songId=#{musicianSong.id}" /></li>
                 </ul>
             </ui:repeat>
         </c:when>

@@ -3,7 +3,7 @@ package lt.vu.usecases;
 import lombok.Getter;
 import lombok.Setter;
 import lt.vu.entities.Musician;
-import lt.vu.persistence.MusicianDAO;
+import lt.vu.persistence.MusiciansDAO;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
@@ -15,7 +15,7 @@ import java.util.List;
 public class Musicians {
 
     @Inject
-    private MusicianDAO musicianDAO;
+    private MusiciansDAO musiciansDAO;
 
     @Getter
     @Setter
@@ -31,11 +31,11 @@ public class Musicians {
 
     @Transactional
     public String createMusician(){
-        this.musicianDAO.persist(musicianToCreate);
-        return "success";
+        this.musiciansDAO.persist(musicianToCreate);
+        return "index?faces-redirect=true";
     }
 
     private void loadAllTeams(){
-        this.allMusicians = musicianDAO.loadAll();
+        this.allMusicians = musiciansDAO.loadAll();
     }
 }

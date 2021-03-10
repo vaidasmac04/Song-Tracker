@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lt.vu.entities.Musician;
 import lt.vu.entities.Song;
-import lt.vu.persistence.MusicianDAO;
+import lt.vu.persistence.MusiciansDAO;
 import lt.vu.persistence.SongsDAO;
 
 import javax.annotation.PostConstruct;
@@ -17,7 +17,7 @@ import java.util.Map;
 @Model
 public class SongsOfMusician {
     @Inject
-    private MusicianDAO musicianDAO;
+    private MusiciansDAO musiciansDAO;
 
     @Inject
     private SongsDAO songsDAO;
@@ -35,13 +35,13 @@ public class SongsOfMusician {
         Map<String, String> requestParameters =
                 FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         Integer musicianId = Integer.parseInt(requestParameters.get("musicianId"));
-        this.musician = musicianDAO.findOne(musicianId);
+        this.musician = musiciansDAO.findOne(musicianId);
     }
 
     @Transactional
     public String createSong() {
         songToCreate.setMusician(this.musician);
         songsDAO.persist(songToCreate);
-        return "/musician-songs.xhtml?faces-redirect=true&musicianId=" + this.musician.getId();
+        return "/musician-songs?faces-redirect=true&musicianId=" + this.musician.getId();
     }
 }

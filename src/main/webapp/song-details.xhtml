@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head/>
+<h:body>
+    <h2>Song: <i>#{genresOfSong.currentSong.title}</i></h2>
+
+    <c:choose>
+    Genres:
+        <c:when test="#{genresOfSong.currentSong.genres.size() > 0}" >
+            <ui:repeat value="#{genresOfSong.currentSong.genres}" var="songGenres">
+                <ul>
+                    <li>#{songGenres.name}</li>
+                </ul>
+            </ui:repeat>
+        </c:when>
+        <c:otherwise>
+            <p>There are no genres added yet</p>
+        </c:otherwise>
+    </c:choose>
+
+    <h3>Choose or create new genre</h3>
+    <h4>Choose from existing ones</h4>
+    <c:choose>
+    Genres:
+        <c:when test="#{genresOfSong.availableGenres.size() > 0}" >
+            <h:form>
+                <ui:repeat value="#{genresOfSong.availableGenres}" var="genre">
+                    <ul>
+                        <h:commandButton value="Add #{genre.name.toUpperCase()}" action="#{genresOfSong.addGenreToSong(genre)}" >
+                            <f:param name="songId" value="#{genresOfSong.currentSong.id}" />
+                        </h:commandButton>
+                    </ul>
+                </ui:repeat>
+            </h:form>
+        </c:when>
+        <c:otherwise>
+            <p>There are no available genres</p>
+        </c:otherwise>
+    </c:choose>
+
+    <h4>Add new one</h4>
+    <h:form>
+        Enter genre:
+        <h:inputText value="#{genresOfSong.genreToAdd.name}" required="true" />
+        <h:commandButton value="Add genre" action="#{genresOfSong.createGenre}" >
+            <f:param name="songId" value="#{genresOfSong.currentSong.id}" />
+        </h:commandButton>
+    </h:form>
+</h:body>
+</html>

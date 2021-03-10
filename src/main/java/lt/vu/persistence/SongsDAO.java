@@ -1,6 +1,8 @@
 package lt.vu.persistence;
 
 import lombok.Setter;
+import lt.vu.entities.Genre;
+import lt.vu.entities.Musician;
 import lt.vu.entities.Song;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -17,4 +19,10 @@ public class SongsDAO {
     public void persist(Song song){
         this.em.persist(song);
     }
+
+    public void merge(Song song) {
+        this.em.merge(song);
+    }
+
+    public Song findOne(Integer id) { return em.find(Song.class, id); }
 }

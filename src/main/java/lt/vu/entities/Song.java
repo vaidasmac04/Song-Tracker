@@ -5,8 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Getter
@@ -23,8 +22,8 @@ public class Song {
     private String title;
     private Date releaseDate;
 
-    @ManyToMany
-    private List<Genre> genres = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Genre> genres = new HashSet<>();
 
     @ManyToOne
     private Album album;
@@ -34,5 +33,18 @@ public class Song {
 
     public Song(){
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Song song = (Song) o;
+        return id.equals(song.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

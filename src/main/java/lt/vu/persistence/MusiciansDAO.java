@@ -10,17 +10,13 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @ApplicationScoped
-public class MusicianDAO {
+public class MusiciansDAO {
 
     @PersistenceContext
     private EntityManager em;
 
     public List<Musician> loadAll() {
         return em.createNamedQuery("Musician.findAll", Musician.class).getResultList();
-    }
-
-    public void setEm(EntityManager em) {
-        this.em = em;
     }
 
     public void persist(Musician musician){
