@@ -1,0 +1,42 @@
+#navigation-bar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000000;
+}
+
+#navigation-bar li {
+    float: left;
+}
+
+#navigation-bar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+#navigation-bar li a:hover {
+    background-color: #2e2e2e;
+}
+
+#website-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#go-back {
+    background-color: #6A5ACD;
+    width: 15%;
+    color: white;
+    padding: 4px;
+    border: none;
+    cursor: pointer;
+    float: right;
+}
+
+#h-with-back {
+    display: inline-block;
+}

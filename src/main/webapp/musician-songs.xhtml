@@ -9,32 +9,37 @@
 
 <h:head/>
 <h:body>
-    <h2>Musician: #{songsOfMusician.musician.stageName}</h2>
+    <ui:composition template="templates/layout.xhtml">
+        <ui:define name="content">
+            <h:button id="go-back" value="Go back" onclick="window.history.go(-1);return false;"/>
+            <h2 id="h-with-back">Musician: #{songsOfMusician.musician.stageName}</h2>
 
-    <c:choose>
-        Songs:
-        <c:when test="#{songsOfMusician.musician.songs.size() > 0}" >
-            <ui:repeat value="#{songsOfMusician.musician.songs}" var="musicianSong">
-                <ul>
-                    <li><h:link value="#{musicianSong.title}" outcome="song-details?songId=#{musicianSong.id}" /></li>
-                </ul>
-            </ui:repeat>
-        </c:when>
-        <c:otherwise>
-            <p>There are no songs added yet</p>
-        </c:otherwise>
-    </c:choose>
+            <c:choose>
+                Songs:
+                <c:when test="#{songsOfMusician.musician.songs.size() > 0}" >
+                    <ui:repeat value="#{songsOfMusician.musician.songs}" var="musicianSong">
+                        <ul>
+                            <li><h:link value="#{musicianSong.title}" outcome="song-details?songId=#{musicianSong.id}" /></li>
+                        </ul>
+                    </ui:repeat>
+                </c:when>
+                <c:otherwise>
+                    <p>There are no songs added yet</p>
+                </c:otherwise>
+            </c:choose>
 
-    <h3>Add song</h3>
-    <h:form>
-        Enter song title <br />
-        <h:inputText value="#{songsOfMusician.songToCreate.title}" required="true" /> <br />
+            <h3>Add song</h3>
+            <h:form>
+                Enter song title <br />
+                <h:inputText value="#{songsOfMusician.songToCreate.title}" required="true" /> <br />
 
-        Select date <br />
-        <p:calendar value="#{songsOfMusician.songToCreate.releaseDate}" mode="popup" required="true"/> <br />
-        <h:commandButton value="Add song" action="#{songsOfMusician.createSong}" >
-            <f:param name="musicianId" value="#{songsOfMusician.musician.id}" />
-        </h:commandButton>
-    </h:form>
+                Select date <br />
+                <p:calendar value="#{songsOfMusician.songToCreate.releaseDate}" mode="popup" required="true"/> <br />
+                <h:commandButton value="Add song" action="#{songsOfMusician.createSong}" >
+                    <f:param name="musicianId" value="#{songsOfMusician.musician.id}" />
+                </h:commandButton>
+            </h:form>
+        </ui:define>
+    </ui:composition>
 </h:body>
 </html>
