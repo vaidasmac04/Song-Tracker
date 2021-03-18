@@ -4,7 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head/>
 <h:body>
@@ -26,8 +27,11 @@
 
     <h3>Add song</h3>
     <h:form>
-        Enter song title:
-        <h:inputText value="#{songsOfMusician.songToCreate.title}" required="true" />
+        Enter song title <br />
+        <h:inputText value="#{songsOfMusician.songToCreate.title}" required="true" /> <br />
+
+        Select date <br />
+        <p:calendar value="#{songsOfMusician.songToCreate.releaseDate}" mode="popup" required="true"/> <br />
         <h:commandButton value="Add song" action="#{songsOfMusician.createSong}" >
             <f:param name="musicianId" value="#{songsOfMusician.musician.id}" />
         </h:commandButton>
