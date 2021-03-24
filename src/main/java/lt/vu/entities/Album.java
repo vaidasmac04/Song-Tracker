@@ -10,6 +10,9 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NamedQueries({
+        @NamedQuery(name = "Album.findAll", query = "select a from Album as a")
+})
 public class Album {
 
     @Id
@@ -19,6 +22,9 @@ public class Album {
 
     @OneToMany(mappedBy="album")
     private List<Song> songs = new ArrayList<>();
+
+    @ManyToOne
+    private Musician musician;
 
     public Album(){
 

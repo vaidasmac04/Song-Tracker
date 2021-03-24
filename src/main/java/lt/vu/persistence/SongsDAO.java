@@ -1,6 +1,7 @@
 package lt.vu.persistence;
 
 import lombok.Setter;
+import lt.vu.entities.Album;
 import lt.vu.entities.Genre;
 import lt.vu.entities.Musician;
 import lt.vu.entities.Song;
@@ -8,6 +9,7 @@ import lt.vu.entities.Song;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 
 @ApplicationScoped
@@ -25,4 +27,16 @@ public class SongsDAO {
     }
 
     public Song findOne(Integer id) { return em.find(Song.class, id); }
+
+    public List<Song> loadAll() {
+        return em.createNamedQuery("Song.findAll", Song.class).getResultList();
+    }
+
+    public List<Song> findByAlbum(Integer albumId){
+        Query query = em.createNamedQuery("Song.findByAlbum",
+                Song.class);
+        query.setParameter("albumId", albumId);
+
+        return query.getResultList();
+    }
 }

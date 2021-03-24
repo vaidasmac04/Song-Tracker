@@ -20,8 +20,10 @@ public class Musician {
     private String stageName;
 
     @OneToMany(mappedBy = "musician", fetch = FetchType.EAGER)
-    List<Song> songs = new ArrayList<>();
+    private List<Song> songs = new ArrayList<>();
 
+    @OneToMany(mappedBy = "musician")
+    private List<Album> albums = new ArrayList<>();
 
     public Musician(){
 

@@ -10,7 +10,9 @@ import java.util.*;
 @Getter
 @Setter
 @NamedQueries({
-        @NamedQuery(name = "Song.findAll", query = "select s from Song as s")
+        @NamedQuery(name = "Song.findAll", query = "select s from Song as s"),
+        @NamedQuery(name = "Song.findByAlbum",
+                query = "select s from Song as s where s.album.id =: albumId")
 })
 
 public class Song {

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+>
+
+<h:head/>
+<h:body>
+    <ui:composition template="templates/layout.xhtml">
+        <ui:define name="content">
+            <h:button id="go-back" value="Go back" onclick="window.history.go(-1);return false;"/>
+            <h2 id="h-with-back">Album: #{songsOfAlbum.album.title} </h2>
+
+            <c:choose>
+                Songs:
+                <c:when test="#{songsOfAlbum.allAlbumSongs.size() > 0}" >
+                    <ui:repeat value="#{songsOfAlbum.allAlbumSongs}" var="albumSong">
+                        <ul>
+                            <li> #{albumSong.title}" </li>
+                        </ul>
+                    </ui:repeat>
+                </c:when>
+                <c:otherwise>
+                    <p>There are no songs added yet</p>
+                </c:otherwise>
+            </c:choose>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
