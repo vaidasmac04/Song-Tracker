@@ -8,27 +8,34 @@
 <h:head/>
 <h:body>
     <ui:composition template="templates/layout.xhtml">
+        <ui:define name="css">
+            <h:outputStylesheet name="two-column-layout.css" library="css" />
+        </ui:define>
         <ui:define name="content">
-            <h1>Musicians</h1>
-            <c:choose>
-                <c:when test="#{musicians.allMusicians.size() > 0}" >
-                    <ul>
-                        <ui:repeat value="#{musicians.allMusicians}" var="musician">
-                            <li><h:link value="#{musician.stageName}" outcome="musician-songs?musicianId=#{musician.id}" /></li>
-                        </ui:repeat>
-                    </ul>
-                </c:when>
-                <c:otherwise>
-                    <p>There are no musicians added yet</p>
-                </c:otherwise>
-            </c:choose>
-
-            <h2>Add new musician</h2>
-            <h:form>
-                Enter musician stage name:
-                <h:inputText value="#{musicians.musicianToCreate.stageName}" required="true" />
-                <h:commandButton value="Add new musician" action="#{musicians.createMusician}" />
-            </h:form>
+            <div class="row">
+                <div class="column1">
+                    <p class="list-title">Musicians </p>
+                        <c:choose>
+                            <c:when test="#{musicians.allMusicians.size() > 0}" >
+                                <ol class="list">
+                                    <ui:repeat value="#{musicians.allMusicians}" var="musician">
+                                        <li class="list-item"><h:link value="#{musician.stageName}" outcome="musician-songs?musicianId=#{musician.id}" /></li>
+                                    </ui:repeat>
+                                </ol>
+                            </c:when>
+                            <c:otherwise>
+                                <p>There are no musicians added yet</p>
+                            </c:otherwise>
+                        </c:choose>
+                </div>
+                <div class="column2">
+                    <h:form class="form">
+                        <label class="label"> Enter musician stage name:</label>
+                        <h:inputText value="#{musicians.musicianToCreate.stageName}" required="true" />
+                        <h:commandButton value="Add new musician" action="#{musicians.createMusician}" />
+                    </h:form>
+                </div>
+            </div>
         </ui:define>
     </ui:composition>
 </h:body>

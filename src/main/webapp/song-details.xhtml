@@ -10,8 +10,7 @@
 <h:body>
     <ui:composition template="templates/layout.xhtml">
         <ui:define name="content">
-            <h:button id="go-back" value="Go back" onclick="window.history.go(-1);return false;"/>
-            <h2 id="h-with-back" >Song: <i>#{genresOfSong.currentSong.title}</i></h2>
+            <h2>Song: <i>#{genresOfSong.currentSong.title}</i></h2>
 
             <c:choose>
             Genres:

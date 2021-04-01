@@ -10,17 +10,16 @@
 <h:body>
     <ui:composition template="templates/layout.xhtml">
         <ui:define name="content">
-            <h:button id="go-back" value="Go back" onclick="window.history.go(-1);return false;"/>
-            <h2 id="h-with-back">Album: #{songsOfAlbum.album.title} </h2>
+            <p class="list-title">Songs of <i>#{singleAlbum.album.title}</i></p>
 
             <c:choose>
                 Songs:
-                <c:when test="#{songsOfAlbum.allAlbumSongs.size() > 0}" >
-                    <ui:repeat value="#{songsOfAlbum.allAlbumSongs}" var="albumSong">
-                        <ul>
-                            <li> #{albumSong.title}" </li>
-                        </ul>
-                    </ui:repeat>
+                <c:when test="#{singleAlbum.album.songs.size() > 0}" >
+                    <ol class="list">
+                        <ui:repeat value="#{singleAlbum.album.songs}" var="albumSong">
+                            <li class="list-item"> #{albumSong.title} </li>
+                        </ui:repeat>
+                    </ol>
                 </c:when>
                 <c:otherwise>
                     <p>There are no songs added yet</p>

@@ -8,27 +8,34 @@
 <h:head/>
 <h:body>
     <ui:composition template="templates/layout.xhtml">
+        <ui:define name="css">
+            <h:outputStylesheet name="two-column-layout.css" library="css" />
+        </ui:define>
         <ui:define name="content">
-            <h1>Albums</h1>
-            <c:choose>
-                <c:when test="#{albums.allAlbums.size() > 0}" >
-                    <ul>
-                        <ui:repeat value="#{albums.allAlbums}" var="album">
-                            <li><h:link value="#{album.title}" outcome="album-songs?albumId=#{album.id}" /></li>
-                        </ui:repeat>
-                    </ul>
-                </c:when>
-                <c:otherwise>
-                    <p>There are no albums added yet</p>
-                </c:otherwise>
-            </c:choose>
-
-            <h2>Add new album</h2>
-            <h:form>
-                Enter album title:
-                <h:inputText value="#{albums.albumToCreate.title}" required="true" />
-                <h:commandButton value="Add new album" action="#{albums.createAlbum}" />
-            </h:form>
+            <div class="row">
+                <div class="column1">
+                    <p class="list-title">Albums</p>
+                        <c:choose>
+                            <c:when test="#{albums.allAlbums.size() > 0}" >
+                                <ol class="list">
+                                    <ui:repeat value="#{albums.allAlbums}" var="album">
+                                        <li class="list-item"><h:link value="#{album.title}" outcome="album-songs?albumId=#{album.id}" /></li>
+                                    </ui:repeat>
+                                </ol>
+                            </c:when>
+                            <c:otherwise>
+                                <p>There are no albums added yet</p>
+                            </c:otherwise>
+                        </c:choose>
+                </div>
+                <div class="column2">
+                    <h:form class="form">
+                        <label class="label">Enter album title:</label>
+                        <h:inputText value="#{albums.albumToCreate.title}" required="true" />
+                        <h:commandButton value="Add new album" action="#{albums.createAlbum}" />
+                    </h:form>
+                </div>
+            </div>
         </ui:define>
     </ui:composition>
 </h:body>
