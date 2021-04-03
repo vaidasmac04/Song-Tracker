@@ -32,11 +32,11 @@ public class SongsDAO {
         return em.createNamedQuery("Song.findAll", Song.class).getResultList();
     }
 
-    public List<Song> findByAlbum(Integer albumId){
-        Query query = em.createNamedQuery("Song.findByAlbum",
+    public Song loadSingleFully(Integer songId){
+        Query query = em.createNamedQuery("Song.loadSingleFully",
                 Song.class);
-        query.setParameter("albumId", albumId);
+        query.setParameter("songId", songId);
 
-        return query.getResultList();
+        return (Song) query.getSingleResult();
     }
 }

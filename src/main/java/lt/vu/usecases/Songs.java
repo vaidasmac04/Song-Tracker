@@ -46,7 +46,7 @@ public class Songs {
 
     @Getter
     @Setter
-    private List<Integer> songToCreate_genresId = new ArrayList<Integer>();
+    private List<Integer> songToCreate_genresId = new ArrayList();
 
     @Getter
     private List<Song> allSongs;
@@ -55,6 +55,7 @@ public class Songs {
     public void init(){
         loadAllSongs();
     }
+
     @Transactional
     public String createSong(){
         Musician musician = musiciansDAO.findOne(songToCreate_musicianId);

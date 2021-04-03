@@ -11,8 +11,8 @@ import java.util.*;
 @Setter
 @NamedQueries({
         @NamedQuery(name = "Song.findAll", query = "select s from Song as s"),
-        @NamedQuery(name = "Song.findByAlbum",
-                query = "select s from Song as s where s.album.id =: albumId")
+        @NamedQuery(name = "Song.loadSingleFully",
+                query = "select s from Song as s left join s.album left join s.musician left join s.genres where s.id = :songId")
 })
 
 public class Song {
