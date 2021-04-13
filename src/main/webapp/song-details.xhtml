@@ -13,16 +13,16 @@
         <ui:define name="content">
             <h:form class="form">
                 <label class="label">Change song title:</label>
-                <h:inputText value="#{singleSong.song.title}" required="true" />
+                <h:inputText value="#{singleSong.songToUpdate.title}" required="true" />
 
                 <label class="label">Change release date:</label>
-                <p:calendar value="#{singleSong.song.releaseDate}" mode="popup" required="true"/>
+                <p:calendar value="#{singleSong.songToUpdate.releaseDate}" mode="popup" required="true"/>
 
                 <label class="label">Change musician:</label>
 
                 <c:choose>
                     <c:when test="#{musicians.allMusicians.size() > 0}" >
-                        <h:selectOneMenu value="#{singleSong.song.musician.id}">
+                        <h:selectOneMenu value="#{singleSong.songToUpdate_musicianId}">
                             <f:selectItems value="#{musicians.allMusicians}" var="musician"
                                            itemLabel="#{musician.stageName}" itemValue="#{musician.id}" />
                             <f:selectItem itemLabel="#{'none'}" itemValue="#{0}" />
@@ -39,7 +39,7 @@
                 <label class="label">Choose album:</label>
                 <c:choose>
                     <c:when test="#{albums.allAlbums.size() > 0}" >
-                        <h:selectOneMenu value="#{singleSong.song.album.id}">
+                        <h:selectOneMenu value="#{singleSong.songToUpdate_albumId}">
                             <f:selectItems value="#{albums.allAlbums}" var="album"
                                            itemLabel="#{album.title}" itemValue="#{album.id}" />
                             <f:selectItem itemLabel="#{'none'}" itemValue="#{0}" />
@@ -54,7 +54,7 @@
                 <label class="label">Choose genres:</label>
                 <c:choose>
                     <c:when test="#{genres.allGenres.size() > 0}" >
-                        <h:selectManyCheckbox value="#{singleSong.genresId}">
+                        <h:selectManyCheckbox value="#{singleSong.songToUpdate_genresId}">
 
                             <f:selectItems value="#{genres.allGenres}" var="genre"
                                            itemValue="#{genre.id}" itemLabel="#{genre.name}" checked="checked"
@@ -71,7 +71,7 @@
                 </c:choose>
 
                 <h:commandButton value="Update song" action="#{singleSong.updateSong}">
-                    <f:param name="songId" value="#{singleSong.song.id}" />
+                    <f:param name="songId" value="#{singleSong.songToUpdate.id}" />
                 </h:commandButton>
             </h:form>
         </ui:define>

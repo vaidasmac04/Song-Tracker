@@ -1,16 +1,15 @@
 package lt.vu.persistence;
 
 import lt.vu.entities.Genre;
-import lt.vu.entities.Musician;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @ApplicationScoped
 public class GenresDAO {
-    @PersistenceContext
+    @Inject
     private EntityManager em;
 
     public List<Genre> loadAll() {

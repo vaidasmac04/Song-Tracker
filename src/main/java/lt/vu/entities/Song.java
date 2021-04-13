@@ -10,9 +10,7 @@ import java.util.*;
 @Getter
 @Setter
 @NamedQueries({
-        @NamedQuery(name = "Song.findAll", query = "select s from Song as s"),
-        @NamedQuery(name = "Song.loadSingleFully",
-                query = "select s from Song as s left join s.album left join s.musician left join s.genres where s.id = :songId")
+        @NamedQuery(name = "Song.findAll", query = "select s from Song as s")
 })
 
 public class Song {
@@ -34,18 +32,5 @@ public class Song {
 
     public Song(){
 
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Song song = (Song) o;
-        return id.equals(song.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }

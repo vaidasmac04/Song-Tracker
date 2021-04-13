@@ -1,21 +1,16 @@
 package lt.vu.persistence;
 
-import lombok.Setter;
-import lt.vu.entities.Album;
-import lt.vu.entities.Genre;
-import lt.vu.entities.Musician;
 import lt.vu.entities.Song;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
 @ApplicationScoped
 public class SongsDAO {
-    @PersistenceContext
-    @Setter
+    @Inject
     private EntityManager em;
 
     public void persist(Song song){
@@ -30,13 +25,5 @@ public class SongsDAO {
 
     public List<Song> loadAll() {
         return em.createNamedQuery("Song.findAll", Song.class).getResultList();
-    }
-
-    public Song loadSingleFully(Integer songId){
-        Query query = em.createNamedQuery("Song.loadSingleFully",
-                Song.class);
-        query.setParameter("songId", songId);
-
-        return (Song) query.getSingleResult();
     }
 }

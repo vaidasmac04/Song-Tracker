@@ -3,7 +3,6 @@ package lt.vu.usecases;
 import lombok.Getter;
 import lombok.Setter;
 import lt.vu.entities.Album;
-import lt.vu.entities.Genre;
 import lt.vu.entities.Musician;
 import lt.vu.entities.Song;
 import lt.vu.persistence.AlbumsDAO;

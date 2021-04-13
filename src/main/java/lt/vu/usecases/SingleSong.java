@@ -38,11 +38,19 @@ public class SingleSong {
 
     @Getter
     @Setter
-    private Song song;
+    private Song songToUpdate;
 
     @Getter
     @Setter
-    private List<Integer> genresId;
+    private int songToUpdate_musicianId;
+
+    @Getter
+    @Setter
+    private int songToUpdate_albumId;
+
+    @Getter
+    @Setter
+    private List<Integer> songToUpdate_genresId;
 
     @PostConstruct
     public void init() {
@@ -50,15 +58,14 @@ public class SingleSong {
                 FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 
         Integer songId = Integer.parseInt(requestParameters.get("songId"));
-        song = songsDAO.loadSingleFully(songId);
+        songToUpdate = songsDAO.findOne(songId);
         prepareSong();
         availableGenres = loadAvailableGenres();
-        genresId = loadCurrentGenresId();
     }
 
     private List<Integer> loadCurrentGenresId() {
         List<Integer> currentGenresId = new ArrayList<>();
-        List<Genre> currentGenres = new ArrayList<>(song.getGenres());
+        List<Genre> currentGenres = new ArrayList<>(songToUpdate.getGenres());
         for(Genre g : currentGenres){
             currentGenresId.add(g.getId());
         }
@@ -68,12 +75,12 @@ public class SingleSong {
     private List<Genre> loadAvailableGenres(){
         List<Genre> genres = new ArrayList<>();
 
-        if(song.getAlbum().getId() == 0){
+        if(songToUpdate.getAlbum().getId() == 0){
             genres.addAll(genresDAO.loadAll());
         }
         else{
             for(Genre g : genresDAO.loadAll()){
-              if(!song.getGenres().contains(g)){
+              if(!songToUpdate.getGenres().contains(g)){
                   genres.add(g);
               }
             }
@@ -84,60 +91,67 @@ public class SingleSong {
 
     @Transactional
     public String updateSong(){
-        if(song.getMusician().getId() != 0){
-            song.setMusician(musiciansDAO.findOne(song.getMusician().getId()));
+        Musician musician = musiciansDAO.findOne(songToUpdate_musicianId);
+
+        if(musician != null){
+            songToUpdate.setMusician(musiciansDAO.findOne(songToUpdate_musicianId));
+        }
+        else{
+            songToUpdate.setMusician(null);
         }
 
-        if(song.getAlbum().getId() != 0){
-            song.setAlbum(albumsDAO.findOne(song.getAlbum().getId()));
+        Album album = albumsDAO.findOne(songToUpdate_albumId);
+        if(album != null){
+            songToUpdate.setAlbum(albumsDAO.findOne(songToUpdate_albumId));
+        }
+        else{
+            songToUpdate.setAlbum(null);
         }
 
         updateGenres();
-        songsDAO.merge(song);
+        songsDAO.merge(songToUpdate);
 
-        return "song-details?faces-redirect=true&songId="+song.getId();
+        return "song-details?faces-redirect=true&songId="+ songToUpdate.getId();
     }
 
     private void prepareSong() {
-        if(song.getMusician() == null){
-            Musician musician = new Musician();
-            musician.setId(0);
-            musician.setStageName("none");
-            song.setMusician(musician);
+        if(songToUpdate.getMusician() == null){
+            songToUpdate_musicianId = 0;
+        }
+        else {
+            songToUpdate_musicianId = songToUpdate.getMusician().getId();
         }
 
-        if(song.getAlbum() == null){
-            Album album = new Album();
-            album.setId(0);
-            song.setAlbum(album);
+        if(songToUpdate.getAlbum() == null){
+            songToUpdate_albumId = 0;
+        }
+        else {
+            songToUpdate_albumId = songToUpdate.getAlbum().getId();
         }
 
-        if(song.getGenres() == null){
-            Set<Genre> genres = new HashSet<>();
-            song.setGenres(genres);
-        }
+        songToUpdate_genresId = loadCurrentGenresId();
     }
 
     private void updateGenres() {
-        List<Genre> oldGenres = new ArrayList<>(song.getGenres());
+        List<Genre> oldGenres = new ArrayList<>(songToUpdate.getGenres());
         List<Genre> newGenres = new ArrayList<>(loadNewGenres());
 
         for(Genre g : newGenres){
             if(!oldGenres.contains(g)){
-                song.getGenres().add(g);
+                songToUpdate.getGenres().add(g);
             }
         }
 
         for(Genre g : oldGenres){
             if(!newGenres.contains(g)){
-                song.getGenres().remove(g);
+                songToUpdate.getGenres().remove(g);
             }
         }
     }
 
     private Set<Genre> loadNewGenres(){
         Set<Genre> genres = new HashSet<>();
-        for(Integer id : genresId){
+        for(Integer id : songToUpdate_genresId){
             genres.add(genresDAO.findOne(id));
         }
         return genres;

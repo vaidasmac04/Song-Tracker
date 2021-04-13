@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +18,11 @@ public class Musician {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @NotNull
     private String stageName;
 
-    @OneToMany(mappedBy = "musician", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "musician")
     private List<Song> songs = new ArrayList<>();
 
     @OneToMany(mappedBy = "musician")

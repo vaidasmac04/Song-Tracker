@@ -1,16 +1,15 @@
 package lt.vu.persistence;
 
 import lt.vu.entities.Album;
-import lt.vu.entities.Song;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @ApplicationScoped
 public class AlbumsDAO {
-    @PersistenceContext
+    @Inject
     private EntityManager em;
 
     public List<Album> loadAll() {

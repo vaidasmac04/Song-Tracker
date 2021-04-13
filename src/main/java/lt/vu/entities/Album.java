@@ -20,7 +20,7 @@ public class Album {
     private Integer id;
     private String title;
 
-    @OneToMany(mappedBy="album", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="album")
     private List<Song> songs = new ArrayList<>();
 
     @ManyToOne

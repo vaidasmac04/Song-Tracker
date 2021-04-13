@@ -24,6 +24,7 @@ public class Musicians {
     @Getter
     private List<Musician> allMusicians;
 
+
     @PostConstruct
     public void init(){
         loadAllMusicians();
